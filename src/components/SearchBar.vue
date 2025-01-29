@@ -5,7 +5,7 @@
     label="Search"
     single-line
     hide-details
-    @input="search"
+    @input="search" 
   ></v-text-field>
 </template>
 
@@ -15,12 +15,12 @@ export default {
   data() {
     return {
       searchQuery: ''
-    }
+    };
   },
   methods: {
     search() {
-      this.$emit('search', this.searchQuery)
+      this.$emit('search', this.searchQuery);
     }
   }
-}
+};
 </script>
