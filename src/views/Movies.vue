@@ -7,7 +7,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-for="movie in movies" :key="movie.id" cols="12" sm="6" md="4">
+      <v-col v-for="movie in filteredMovies" :key="movie.id" cols="12" sm="6" md="4">
         <movie-card :movie="movie" />
       </v-col>
     </v-row>
@@ -27,17 +27,22 @@ export default {
   },
   data() {
     return {
-      movies: []
-    }
+      searchQuery: '',
+      store: useMovieStore() 
+    };
   },
-  created() {
-    const store = useMovieStore();
-    this.movies = store.movies;
+  computed: {
+    filteredMovies() {
+      if (!this.searchQuery) return this.store.movies;
+      return this.store.movies.filter(movie =>
+        movie.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
   },
   methods: {
     handleSearch(query) {
-      // Implement search logic
+      this.searchQuery = query;
     }
   }
-}
+};
 </script>
